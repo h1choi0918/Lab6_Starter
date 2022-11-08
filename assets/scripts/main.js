@@ -24,6 +24,7 @@ function getRecipesFromStorage() {
   // A9. TODO - Complete the functionality as described in this function
   //           header. It is possible in only a single line, but should
   //           be no more than a few lines.
+  return JSON.parse(localStorage.getItem('recipes'));
 }
 
 /**
@@ -35,10 +36,45 @@ function getRecipesFromStorage() {
  */
 function addRecipesToDocument(recipes) {
   // A10. TODO - Get a reference to the <main> element
+  let main = document.querySelector('main');
   // A11. TODO - Loop through each of the recipes in the passed in array,
   //            create a <recipe-card> element for each one, and populate
   //            each <recipe-card> with that recipe data using element.data = ...
   //            Append each element to <main>
+  for (let i = 0; i < recipes.length; i++) {
+    let element =  document.createElement('recipe-card');
+    element.data = {};
+    element.shadowRoot.querySelectorAll("img")[0].setAttribute("src" , recipes[i].imgSrc);
+    element.shadowRoot.querySelectorAll("img")[0].setAttribute("alt" , recipes[i].imgAlt);
+    element.shadowRoot.querySelector("a").setAttribute("href", recipes[i].titleLnk);
+    element.shadowRoot.querySelector("a").innerHTML = recipes[i].titleTxt;
+    element.shadowRoot.querySelectorAll("p")[1].innerHTML = recipes[i].organization;
+    element.shadowRoot.querySelectorAll("span")[0].innerHTML = recipes[i].rating;
+    if (recipes[i].rating == "0") {
+      element.shadowRoot.querySelectorAll("img")[1].setAttribute("src", "./assets/images/icons/0-star.svg");
+      element.shadowRoot.querySelectorAll("img")[1].setAttribute("alt", "0 star");
+    }
+    else if (recipes[i].rating == "1") {
+      element.shadowRoot.querySelectorAll("img")[1].setAttribute("src", "./assets/images/icons/1-star.svg");
+      element.shadowRoot.querySelectorAll("img")[1].setAttribute("alt", "1 star");
+    }
+    else if (recipes[i].rating == "2") {
+      element.shadowRoot.querySelectorAll("img")[1].setAttribute("src", "./assets/images/icons/2-star.svg");
+      element.shadowRoot.querySelectorAll("img")[1].setAttribute("alt", "2 stars");
+    }
+    else if (recipes[i].rating == "3") {
+      element.shadowRoot.querySelectorAll("img")[1].setAttribute("src", "./assets/images/icons/3-star.svg");
+      element.shadowRoot.querySelectorAll("img")[1].setAttribute("alt", "3 stars");
+    }
+    else if (recipes[i].rating == "4") {
+      element.shadowRoot.querySelectorAll("img")[1].setAttribute("src", "./assets/images/icons/4-star.svg");
+      element.shadowRoot.querySelectorAll("img")[1].setAttribute("alt", "4 stars");
+    }
+    element.shadowRoot.querySelectorAll("span")[1].innerHTML = recipes[i].numRatings;
+    element.shadowRoot.querySelector("time").innerHTML = recipes[i].lengthTime;
+    element.shadowRoot.querySelectorAll("p")[2].innerHTML = recipes[i].ingredients;
+    main.append(element);
+  }
 }
 
 /**

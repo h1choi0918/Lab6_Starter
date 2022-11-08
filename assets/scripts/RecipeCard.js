@@ -8,9 +8,9 @@ class RecipeCard extends HTMLElement {
 
     // EXPOSE - START (All expose numbers start with A)
     // A1. TODO - Attach the shadow DOM to this Web Component (leave the mode open)
-    this.attachShadow({mode:"open"});
+    this.attachShadow({mode:'open'});
     // A2. TODO - Create an <article> element - This will hold our markup once our data is set
-    let art = document.createElement("article");
+    let article = document.createElement("article");
     // A3. TODO - Create a style element - This will hold all of the styles for the Web Component
     let style = document.createElement("style");
     // A4. TODO - Insert all of the styles from cardTemplate.html into the <style> element you just made
@@ -20,15 +20,15 @@ class RecipeCard extends HTMLElement {
         margin: 0;
         padding: 0;
       }
-
+    
       a {
         text-decoration: none;
       }
-
+    
       a:hover {
         text-decoration: underline;
       }
-
+    
       article {
         align-items: center;
         border: 1px solid rgb(223, 225, 229);
@@ -40,20 +40,20 @@ class RecipeCard extends HTMLElement {
         padding: 0 16px 16px 16px;
         width: 178px;
       }
-
+    
       div.rating {
         align-items: center;
         column-gap: 5px;
         display: flex;
       }
-
+    
       div.rating>img {
         height: auto;
         display: inline-block;
         object-fit: scale-down;
         width: 78px;
       }
-
+    
       article>img {
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;
@@ -62,18 +62,18 @@ class RecipeCard extends HTMLElement {
         margin-left: -16px;
         width: calc(100% + 32px);
       }
-
+    
       p.ingredients {
         height: 32px;
         line-height: 16px;
         padding-top: 4px;
         overflow: hidden;
       }
-
+    
       p.organization {
         color: black !important;
       }
-
+    
       p.title {
         display: -webkit-box;
         font-size: 16px;
@@ -83,7 +83,7 @@ class RecipeCard extends HTMLElement {
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
       }
-
+    
       p:not(.title),
       span,
       time {
@@ -91,7 +91,8 @@ class RecipeCard extends HTMLElement {
         font-size: 12px;
       }`;
     // A5. TODO - Append the <style> and <article> elements to the Shadow DOM
-    this.shadowRoot.append(art, style);
+    this.shadowRoot.appendChild(article);
+    this.shadowRoot.appendChild(style);
   }
 
   /**
@@ -120,12 +121,12 @@ class RecipeCard extends HTMLElement {
     if (!data) return;
 
     // A6. TODO - Select the <article> we added to the Shadow DOM in the constructor
-    let article = this.shadowRoot.querySelector("article");
+    let element = this.shadowRoot.querySelector("article");
     // A7. TODO - Set the contents of the <article> with the <article> template given in
     //           cardTemplate.html and the data passed in (You should only have one <article>,
     //           do not nest an <article> inside another <article>). You should use Template
     //           literals (tempalte strings) and element.innerHTML for this.
-    article.innerHTML = `
+    element.innerHTML = `
       <img src="https://link-to-article.com/recipe-thumbnail.jpg" alt="Recipe Title">
       <p class="title">
         <a href="https://link-to-article.com">Title</a>
@@ -133,7 +134,7 @@ class RecipeCard extends HTMLElement {
       <p class="organization">The Chef's Organization</p>
       <div class="rating">
         <span>5</span>
-        <img src="/assets/images/icons/5-star.svg" alt="5 stars">
+        <img src="./assets/images/icons/5-star.svg" alt="5 stars">
         <span>(500)</span>
       </div>
       <time>50 min</time>
@@ -146,4 +147,4 @@ class RecipeCard extends HTMLElement {
 
 // A8. TODO - Define the Class as a customElement so that you can create
 //           'recipe-card' elements
-customElements.define("recipe-card", RecipeCard);
+customElements.define('recipe-card', RecipeCard);

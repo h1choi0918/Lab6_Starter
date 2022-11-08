@@ -43,7 +43,7 @@ function addRecipesToDocument(recipes) {
   //            Append each element to <main>
   for (let i = 0; i < recipes.length; i++) {
     let element =  document.createElement('recipe-card');
-    element.data = {};
+    element.data = {}; // How do I do this part? element.data = recipes[i] doesn't work. I've found alt way by assigning individually...
     element.shadowRoot.querySelectorAll("img")[0].setAttribute("src" , recipes[i].imgSrc);
     element.shadowRoot.querySelectorAll("img")[0].setAttribute("alt" , recipes[i].imgAlt);
     element.shadowRoot.querySelector("a").setAttribute("href", recipes[i].titleLnk);

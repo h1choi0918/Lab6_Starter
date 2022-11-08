@@ -142,7 +142,36 @@ class RecipeCard extends HTMLElement {
         Comma, Separated, List, of, Ingredients
       </p>
     `;
-  }
+    element.querySelectorAll("img")[0].setAttribute("src" , data.imgSrc);
+    element.querySelectorAll("img")[0].setAttribute("alt" , data.imgAlt);
+    element.querySelector("a").setAttribute("href", data.titleLnk);
+    element.querySelector("a").innerHTML = data.titleTxt;
+    element.querySelectorAll("p")[1].innerHTML = data.organization;
+    element.querySelectorAll("span")[0].innerHTML = data.rating;
+    if (data.rating == "0") {
+      element.querySelectorAll("img")[1].setAttribute("src", "./assets/images/icons/0-star.svg");
+      element.querySelectorAll("img")[1].setAttribute("alt", "0 star");
+    }
+    else if (data.rating == "1") {
+      element.querySelectorAll("img")[1].setAttribute("src", "./assets/images/icons/1-star.svg");
+      element.querySelectorAll("img")[1].setAttribute("alt", "1 star");
+    }
+    else if (data.rating == "2") {
+      element.querySelectorAll("img")[1].setAttribute("src", "./assets/images/icons/2-star.svg");
+      element.querySelectorAll("img")[1].setAttribute("alt", "2 stars");
+    }
+    else if (data.rating == "3") {
+      element.querySelectorAll("img")[1].setAttribute("src", "./assets/images/icons/3-star.svg");
+      element.querySelectorAll("img")[1].setAttribute("alt", "3 stars");
+    }
+    else if (data.rating == "4") {
+      element.querySelectorAll("img")[1].setAttribute("src", "./assets/images/icons/4-star.svg");
+      element.querySelectorAll("img")[1].setAttribute("alt", "4 stars");
+    }
+    element.querySelectorAll("span")[1].innerHTML = data.numRatings;
+    element.querySelector("time").innerHTML = data.lengthTime;
+    element.querySelectorAll("p")[2].innerHTML = data.ingredients;};
+
 }
 
 // A8. TODO - Define the Class as a customElement so that you can create

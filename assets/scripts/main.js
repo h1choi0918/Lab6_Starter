@@ -43,36 +43,9 @@ function addRecipesToDocument(recipes) {
   //            Append each element to <main>
   for (let i = 0; i < recipes.length; i++) {
     let element =  document.createElement('recipe-card');
-    element.data = {}; // How do I do this part? element.data = recipes[i] doesn't work. I've found alt way by assigning individually...
-    element.shadowRoot.querySelectorAll("img")[0].setAttribute("src" , recipes[i].imgSrc);
-    element.shadowRoot.querySelectorAll("img")[0].setAttribute("alt" , recipes[i].imgAlt);
-    element.shadowRoot.querySelector("a").setAttribute("href", recipes[i].titleLnk);
-    element.shadowRoot.querySelector("a").innerHTML = recipes[i].titleTxt;
-    element.shadowRoot.querySelectorAll("p")[1].innerHTML = recipes[i].organization;
-    element.shadowRoot.querySelectorAll("span")[0].innerHTML = recipes[i].rating;
-    if (recipes[i].rating == "0") {
-      element.shadowRoot.querySelectorAll("img")[1].setAttribute("src", "./assets/images/icons/0-star.svg");
-      element.shadowRoot.querySelectorAll("img")[1].setAttribute("alt", "0 star");
-    }
-    else if (recipes[i].rating == "1") {
-      element.shadowRoot.querySelectorAll("img")[1].setAttribute("src", "./assets/images/icons/1-star.svg");
-      element.shadowRoot.querySelectorAll("img")[1].setAttribute("alt", "1 star");
-    }
-    else if (recipes[i].rating == "2") {
-      element.shadowRoot.querySelectorAll("img")[1].setAttribute("src", "./assets/images/icons/2-star.svg");
-      element.shadowRoot.querySelectorAll("img")[1].setAttribute("alt", "2 stars");
-    }
-    else if (recipes[i].rating == "3") {
-      element.shadowRoot.querySelectorAll("img")[1].setAttribute("src", "./assets/images/icons/3-star.svg");
-      element.shadowRoot.querySelectorAll("img")[1].setAttribute("alt", "3 stars");
-    }
-    else if (recipes[i].rating == "4") {
-      element.shadowRoot.querySelectorAll("img")[1].setAttribute("src", "./assets/images/icons/4-star.svg");
-      element.shadowRoot.querySelectorAll("img")[1].setAttribute("alt", "4 stars");
-    }
-    element.shadowRoot.querySelectorAll("span")[1].innerHTML = recipes[i].numRatings;
-    element.shadowRoot.querySelector("time").innerHTML = recipes[i].lengthTime;
-    element.shadowRoot.querySelectorAll("p")[2].innerHTML = recipes[i].ingredients;
+    console.log(element);
+    element.data = {"imgSrc":recipes[i].imgSrc, "imgAlt":recipes[i].imgAlt, "titleLnk":recipes[i].titleLnk,"titleTxt":recipes[i].titleTxt,
+      "organization":recipes[i].organization, "rating":recipes[i].rating, "numRatings":recipes[i].numRatings, "lengthTime":recipes[i].lengthTime, "ingredients":recipes[i].ingredients};
     main.append(element);
   }
 }
@@ -97,20 +70,24 @@ function saveRecipesToStorage(recipes) {
 function initFormHandler() {
 
   // B2. TODO - Get a reference to the <form> element
-  let formElement = document.querySelector('form');
+  let formElement = document.querySelector("form");
   // B3. TODO - Add an event listener for the 'submit' event, which fires when the
   //            submit button is clicked
   formElement.addEventListener('submit', event => {
     const formData = new FormData(formElement); //B4
-    const empObj = new recipeObject();
-    empObj.keys() = formData.keys();
-    empObj.values() = formData.values();
+    const recObj = new Object(); //B5
+    for (var [key, value] of formData.entries()) {
+      console.log(key, value);
+      recObj[key, value] = [key, value];
+    }
+    recObj.keys() = formData.keys();
+    recObj.values() = formData.values();
 
     const rec = document.createElement("recipe-card"); //B6
-    rec.data = empObj; //B7
+    rec.data = recObj.data; //B7
     document.querySelector('main').append(rec); //B8
 
-    localStorage.getItem("recipes") //B9
+    saveRecipesToStorage(getRecipesFromStorage().push(rec)); //B9
 
   });
 

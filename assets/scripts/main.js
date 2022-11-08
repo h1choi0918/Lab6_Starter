@@ -43,7 +43,6 @@ function addRecipesToDocument(recipes) {
   //            Append each element to <main>
   for (let i = 0; i < recipes.length; i++) {
     let element =  document.createElement('recipe-card');
-    console.log(element);
     element.data = {"imgSrc":recipes[i].imgSrc, "imgAlt":recipes[i].imgAlt, "titleLnk":recipes[i].titleLnk,"titleTxt":recipes[i].titleTxt,
       "organization":recipes[i].organization, "rating":recipes[i].rating, "numRatings":recipes[i].numRatings, "lengthTime":recipes[i].lengthTime, "ingredients":recipes[i].ingredients};
     main.append(element);
@@ -60,7 +59,7 @@ function saveRecipesToStorage(recipes) {
   // B1. TODO - Complete the functionality as described in this function
   //            header. It is possible in only a single line, but should
   //            be no more than a few lines.
-  localStorage.setItem("recipes", recipes.toString());
+  localStorage.setItem("recipes", JSON.stringify(recipes));
 }
 
 /**
@@ -77,21 +76,21 @@ function initFormHandler() {
     const formData = new FormData(formElement); //B4
     const recObj = new Object(); //B5
     for (var [key, value] of formData.entries()) {
-      console.log(key, value);
-      recObj[key, value] = [key, value];
+      recObj[key] = value;
     }
-    recObj.keys() = formData.keys();
-    recObj.values() = formData.values();
 
-    const rec = document.createElement("recipe-card"); //B6
-    rec.data = recObj.data; //B7
+    let rec = document.createElement("recipe-card"); //B6
+    rec = {"imgSrc":recObj.imgSrc, "imgAlt":recObj.imgAlt, "titleLnk":recObj.titleLnk, "titleTxt":recObj.titleTxt, "organization":recObj.organization,
+      "rating":recObj.numRatings, "numRatings":recObj.numRatings, "lengthTime":recObj.lengthTime, "ingredients":recObj.ingredients}; //B7
     document.querySelector('main').append(rec); //B8
 
-    saveRecipesToStorage(getRecipesFromStorage().push(rec)); //B9
+    let save = getRecipesFromStorage();
+    save.push(rec);
+    saveRecipesToStorage(save); //B9
 
   });
 
-  const click = document.querySelectorAll("button")[1]; //B10
+  const click = document.querySelectorAll("button")[1];
   click.addEventListener('click', event => { //B11
     localStorage.removeItem("recipes"); //B12
     document.querySelector('main').innerHTML="";//B13

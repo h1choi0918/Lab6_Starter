@@ -87,6 +87,7 @@ function saveRecipesToStorage(recipes) {
   // B1. TODO - Complete the functionality as described in this function
   //            header. It is possible in only a single line, but should
   //            be no more than a few lines.
+  localStorage.setItem("recipes", recipes.toString());
 }
 
 /**
@@ -96,10 +97,28 @@ function saveRecipesToStorage(recipes) {
 function initFormHandler() {
 
   // B2. TODO - Get a reference to the <form> element
-  
+  let formElement = document.querySelector('form');
   // B3. TODO - Add an event listener for the 'submit' event, which fires when the
   //            submit button is clicked
+  formElement.addEventListener('submit', event => {
+    const formData = new FormData(formElement); //B4
+    const empObj = new recipeObject();
+    empObj.keys() = formData.keys();
+    empObj.values() = formData.values();
 
+    const rec = document.createElement("recipe-card"); //B6
+    rec.data = empObj; //B7
+    document.querySelector('main').append(rec); //B8
+
+    localStorage.getItem("recipes") //B9
+
+  });
+
+  const click = document.querySelectorAll("button")[1]; //B10
+  click.addEventListener('click', event => { //B11
+    localStorage.removeItem("recipes"); //B12
+    document.querySelector('main').innerHTML="";//B13
+  });
   // Steps B4-B9 will occur inside the event listener from step B3
   // B4. TODO - Create a new FormData object from the <form> element reference above
   // B5. TODO - Create an empty object (I'll refer to this object as recipeObject to
